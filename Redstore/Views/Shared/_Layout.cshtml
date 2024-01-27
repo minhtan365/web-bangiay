@@ -1,0 +1,160 @@
+﻿@using Redstore.Models;
+@{ 
+    GioHang hang = Session["giohang"] as GioHang;
+    GioHang gioHang = ViewData["Cart"] as GioHang;
+    if (gioHang == null)
+    {
+        gioHang = new GioHang();
+        ViewData["Cart"] = gioHang;
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <title>All Products - Redstore</title>
+    <link href="~/Chung/style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"  crossorigin="anonymous">
+
+    <!--
+        <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    -->
+</head>
+<body>
+    <div class="container">
+
+        <div class="navbar">
+            <div class="logo">
+                <a href="@Url.Action("Index","Home",new { area =""})"><img src="~/Chung/image/logo.png" width="125px"></a>
+            </div>
+            <nav>
+                <ul id="MenuItems">
+                    <li>
+                        @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "menu-nav__link" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Products", "Index", "Products", new { area = "" }, new { @class = "menu-nav__link" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Contact", "Index", "Contact", new { area = "" }, new { @class = "menu-nav__link" })
+                    </li>
+
+                    @if (Session["nguoidung"] != null)
+                    {
+                        <li><i class="fa-regular fa-user"></i> @Session["nguoidung"]</li>
+                        <li>
+                            @using (Html.BeginForm("Logout", "Account", FormMethod.Post))
+                            {
+                                <a href="@Url.Action("Logout", "Account", new { area = "" })" type="">
+                                    <i class="fa-solid fa-arrow-right-from-bracket"> Log Out</i>
+                                </a>
+                            }
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown">
+                            @Html.ActionLink("Account", "Index", "Account", new { area = "" }, new { @class = "nav-link dropdown-toggle" })
+                        </li>
+                    }
+                </ul>
+            </nav>
+            <a href="@Url.Action("Index","Cart",new { area = "" })" style="position:relative;">
+                <img src="~/Chung/image/cart.png" width="30px" height="30px">
+                @if (gioHang != null)
+                {
+                    <input id="cartItemCount" type="text" value="@gioHang.tongslSP()" style="width: 20px; border: none; position: absolute;" />
+
+                }
+            </a>
+            <img src="~/Chung/image/menu.png" class="menu-icon" onClick="menutoggle()">
+        </div>
+
+    </div>
+   
+    @RenderBody()
+    <div class="footer">
+        <div class="container">
+
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Download Our App</h3>
+                    <p>Download App for Android and ios mobile phone.</p>
+                    <div class="app-logo">
+                        <img src="~/Chung/image/play-store.png" alt="">
+                        <img src="~/Chung/image/app-store.png" alt="">
+                    </div>
+                </div>
+                <div class="footer-col-2">
+                    <img src="~/Chung/image/logo-white.png">
+                    <p>
+                        Our Purpose Is To Sustainably Make the Pleasure and Benefits of Sports Accessible to the Many.
+                    </p>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog Post</li>
+                        <li>Return Policy</li>
+                        <li>Join Affiliate</li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Follow us</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Twitter</li>
+                        <li>Instagram</li>
+                        <li>Youtube</li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+    <script src="~/Chung/script.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".addToCartBtn").click(function () {
+                var form = $(this).closest("form");
+
+                $.ajax({
+                    type: form.attr("method"),
+                    url: form.attr("action"),
+                    data: form.serialize(),
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            $("#cartItemCount").val(response.cartItemCount);
+                        } else {
+                            alert("thêm sản phẩm thất bại");
+                        }
+                    },
+                    error: function () {
+                        alert("đã xảy ra lỗi");
+                    },
+                    complete: function () {
+                        event.preventDefault();
+                    },
+                });
+            });
+        });
+    </script>
+   
+</body>
+</html>

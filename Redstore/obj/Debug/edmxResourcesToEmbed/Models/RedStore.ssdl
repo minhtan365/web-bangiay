@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RedStore1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AdminAccounts">
+    <Key>
+      <PropertyRef Name="idAdmin" />
+    </Key>
+    <Property Name="idAdmin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="taiKhoanAdmin" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="matKhauAdmin" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="detailOrders">
+    <Key>
+      <PropertyRef Name="soDH" />
+      <PropertyRef Name="idSP" />
+    </Key>
+    <Property Name="soDH" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="idSP" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="quanTity" Type="int" Nullable="false" />
+    <Property Name="priceSP" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="soDH" />
+    </Key>
+    <Property Name="soDH" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="idUser" Type="int" Nullable="false" />
+    <Property Name="taiKhoan" Type="varchar" MaxLength="20" />
+    <Property Name="ngayDat" Type="datetime" />
+    <Property Name="ngayGiao" Type="datetime" />
+    <Property Name="diaChiGH" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="tinhtrangDH" Type="nvarchar" MaxLength="10" />
+    <Property Name="idAdmin" Type="int" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="idSP" />
+    </Key>
+    <Property Name="idSP" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="nameSP" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="imgSP" Type="varchar(max)" Nullable="false" />
+    <Property Name="priceSP" Type="money" Nullable="false" />
+    <Property Name="typeSP" Type="int" Nullable="false" />
+    <Property Name="noiDungSP" Type="nvarchar(max)" />
+    <Property Name="idAdmin" Type="int" />
+  </EntityType>
+  <EntityType Name="tkNguoiDung">
+    <Key>
+      <PropertyRef Name="taiKhoan" />
+    </Key>
+    <Property Name="taiKhoan" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="passWords" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="typProducts">
+    <Key>
+      <PropertyRef Name="typeSP" />
+    </Key>
+    <Property Name="typeSP" Type="int" Nullable="false" />
+    <Property Name="secTors" Type="nvarchar" MaxLength="90" Nullable="false" />
+    <Property Name="noTe" Type="ntext" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="idUser" />
+    </Key>
+    <Property Name="idUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="numberPhone" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Adress" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <Association Name="FK__detailOrde__idSP__45F365D3">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="detailOrders" Type="Self.detailOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="idSP" />
+      </Principal>
+      <Dependent Role="detailOrders">
+        <PropertyRef Name="idSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__detailOrde__soDH__44FF419A">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="detailOrders" Type="Self.detailOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="soDH" />
+      </Principal>
+      <Dependent Role="detailOrders">
+        <PropertyRef Name="soDH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__idAdmin__5EBF139D">
+    <End Role="AdminAccounts" Type="Self.AdminAccounts" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AdminAccounts">
+        <PropertyRef Name="idAdmin" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="idAdmin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Products__idAdmi__5DCAEF64">
+    <End Role="AdminAccounts" Type="Self.AdminAccounts" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AdminAccounts">
+        <PropertyRef Name="idAdmin" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="idAdmin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Products__typeSP__4222D4EF">
+    <End Role="typProducts" Type="Self.typProducts" Multiplicity="1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="typProducts">
+        <PropertyRef Name="typeSP" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="typeSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_detailOrders_Orders">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="detailOrders" Type="Self.detailOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="soDH" />
+      </Principal>
+      <Dependent Role="detailOrders">
+        <PropertyRef Name="soDH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_detailOrders_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="detailOrders" Type="Self.detailOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="idSP" />
+      </Principal>
+      <Dependent Role="detailOrders">
+        <PropertyRef Name="idSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_tkNguoiDung">
+    <End Role="tkNguoiDung" Type="Self.tkNguoiDung" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tkNguoiDung">
+        <PropertyRef Name="taiKhoan" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="taiKhoan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="idUser" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="idUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RedStore1ModelStoreContainer">
+    <EntitySet Name="AdminAccounts" EntityType="Self.AdminAccounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="detailOrders" EntityType="Self.detailOrders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tkNguoiDung" EntityType="Self.tkNguoiDung" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="typProducts" EntityType="Self.typProducts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__detailOrde__idSP__45F365D3" Association="Self.FK__detailOrde__idSP__45F365D3">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="detailOrders" EntitySet="detailOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__detailOrde__soDH__44FF419A" Association="Self.FK__detailOrde__soDH__44FF419A">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="detailOrders" EntitySet="detailOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__idAdmin__5EBF139D" Association="Self.FK__Orders__idAdmin__5EBF139D">
+      <End Role="AdminAccounts" EntitySet="AdminAccounts" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Products__idAdmi__5DCAEF64" Association="Self.FK__Products__idAdmi__5DCAEF64">
+      <End Role="AdminAccounts" EntitySet="AdminAccounts" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Products__typeSP__4222D4EF" Association="Self.FK__Products__typeSP__4222D4EF">
+      <End Role="typProducts" EntitySet="typProducts" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_detailOrders_Orders" Association="Self.FK_detailOrders_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="detailOrders" EntitySet="detailOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_detailOrders_Products" Association="Self.FK_detailOrders_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="detailOrders" EntitySet="detailOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_tkNguoiDung" Association="Self.FK_Orders_tkNguoiDung">
+      <End Role="tkNguoiDung" EntitySet="tkNguoiDung" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,106 @@
+﻿@using Redstore.Models;
+@model Redstore.Models.Products
+@{
+    ViewBag.Title = "Index";
+}<!-- Main content -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm sản phẩm mới</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Danh sách sản phẩm</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="container-fluid">
+        @using (Html.BeginForm("Index", "AddProducts", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-6">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Hình minh họa cho sản phẩm</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        
+                            <div class="card-body">
+                                <div style="height:300px;display: flex;justify-content: center;">
+                                    <img id="previewImage" src="" alt="" style="height: 100%; display: none;" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputFile">File input</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="file" id="exampleInputFile" onchange="previewImage(this)">
+                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                        </div>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">Upload</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <!--/.col (left) -->
+                <!-- right column -->
+                <div class="col-md-6">
+                    <!-- Form Element sizes -->
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Thông tin chính</h3>
+                        </div>
+                        <div class="card-body">
+                            <b>Tên sản phẩm</b>
+                            <br />
+                            @Html.TextBoxFor(a => a.nameSP, new { @class = "form-control", @type = "text", @placeholder = "Name Products" })
+                            <br>
+                            <b>Nội dung sản phẩm</b>
+                            <br />
+                            @Html.TextAreaFor(a => a.noiDungSP, new { @class = "form-control", @type = "text", @placeholder = "Content" })
+                            <br>
+                            <b>Giá bán</b>
+                            <br />
+                            @Html.TextBoxFor(a => a.priceSP, new { @class = "form-control col-3", @type = "text", @placeholder = "Price" })
+                            <br>
+                            <b>Mã sản phẩm</b>
+                            <br />
+                            @Html.TextBoxFor(a => a.idSP, new { @class = "form-control col-3", @type = "text", @placeholder = "IDSP" })
+                            <br>
+                            <b>Loại sản phẩm</b>
+                            <br />
+                            @Html.TextBoxFor(a => a.typeSP, new { @class = "form-control col-3", @type = "text", @placeholder = "type product" })
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+                        </div>
+                    </div>
+
+                </div>
+                <!--/.col (right) -->
+                
+            </div>
+            
+        }
+
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+
+
+

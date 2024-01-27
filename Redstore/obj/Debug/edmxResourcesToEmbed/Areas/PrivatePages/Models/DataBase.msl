@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RedStore1Model1StoreContainer" CdmEntityContainer="RedStore1Entities1">
+    <EntitySetMapping Name="detailOrders">
+      <EntityTypeMapping TypeName="RedStore1Model1.detailOrders">
+        <MappingFragment StoreEntitySet="detailOrders">
+          <ScalarProperty Name="soDH" ColumnName="soDH" />
+          <ScalarProperty Name="idSP" ColumnName="idSP" />
+          <ScalarProperty Name="quanTity" ColumnName="quanTity" />
+          <ScalarProperty Name="priceSP" ColumnName="priceSP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="RedStore1Model1.Orders">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="soDH" ColumnName="soDH" />
+          <ScalarProperty Name="idUser" ColumnName="idUser" />
+          <ScalarProperty Name="taiKhoan" ColumnName="taiKhoan" />
+          <ScalarProperty Name="ngayDat" ColumnName="ngayDat" />
+          <ScalarProperty Name="ngayGiao" ColumnName="ngayGiao" />
+          <ScalarProperty Name="diaChiGH" ColumnName="diaChiGH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="RedStore1Model1.Products">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="idSP" ColumnName="idSP" />
+          <ScalarProperty Name="nameSP" ColumnName="nameSP" />
+          <ScalarProperty Name="imgSP" ColumnName="imgSP" />
+          <ScalarProperty Name="priceSP" ColumnName="priceSP" />
+          <ScalarProperty Name="typeSP" ColumnName="typeSP" />
+          <ScalarProperty Name="noiDungSP" ColumnName="noiDungSP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tkNguoiDung">
+      <EntityTypeMapping TypeName="RedStore1Model1.tkNguoiDung">
+        <MappingFragment StoreEntitySet="tkNguoiDung">
+          <ScalarProperty Name="taiKhoan" ColumnName="taiKhoan" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="passWords" ColumnName="passWords" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="typProducts">
+      <EntityTypeMapping TypeName="RedStore1Model1.typProducts">
+        <MappingFragment StoreEntitySet="typProducts">
+          <ScalarProperty Name="typeSP" ColumnName="typeSP" />
+          <ScalarProperty Name="secTors" ColumnName="secTors" />
+          <ScalarProperty Name="noTe" ColumnName="noTe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="RedStore1Model1.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="idUser" ColumnName="idUser" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="numberPhone" ColumnName="numberPhone" />
+          <ScalarProperty Name="Adress" ColumnName="Adress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,104 @@
+﻿@using Redstore.Models;
+@{
+    ViewBag.Title = "Index";
+    GioHang hang = Session["giohang"] as GioHang;
+    GioHang gioHang = ViewData["Cart"] as GioHang;
+    if (gioHang == null)
+    {
+        gioHang = new GioHang();
+        ViewData["Cart"] = gioHang;
+    }
+}
+
+<!------------------------------ cart items details------------------------------>
+<style>
+    .cart-info button {
+        border: none;
+        color: #ff523b;
+        background: none;
+        font-size: 17px;
+    }
+
+        .cart-info button:hover {
+            cursor: pointer;
+        }
+
+    .quantity-button {
+        width: 40px;
+    }
+
+    .quantity-input {
+        text-align: center;
+    }
+</style>
+
+<div class="small-container cart-page" style="margin:215px auto;">
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+        </tr>
+        @if (gioHang.tongslSPtronggio() <= 0)
+        {
+            <span>
+                Giỏ hàng của bạn đang trống.
+            </span>
+        }
+        else
+        {
+            foreach (detailOrders detail in gioHang.SPchon.Values)
+            {
+                <tr>
+                    <td>
+                        <div class="cart-info">
+                            <img src="@Url.Content(dungchung.getimgofProducts(detail.idSP))">
+                            <div>
+                                <p>@dungchung.getNameofProducts(detail.idSP)</p>
+                                <small>Price: $@detail.priceSP</small><br>
+                                @using (Html.BeginForm("XoaSP", "Cart", FormMethod.Post))
+                                {
+                                    <input type="hidden" name="idSP" value="@detail.idSP" />
+                                    <button>Remove</button>
+                                }
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("Tang", "Cart", FormMethod.Post))
+                        {
+                            <input type="hidden" name="idSP" value="@detail.idSP" />
+                            <button class="quantity-button" >+</button>
+                        }
+                        <input type="text" value="@detail.quanTity" class="quantity-input">
+                        @using (Html.BeginForm("Giam", "Cart", FormMethod.Post))
+                        {
+                            <input type="hidden" name="idSP" value="@detail.idSP" />
+                            <button class="quantity-button" >-</button>
+                        }
+
+                    </td>
+                    <td>$@gioHang.giatien1SP(detail)</td>
+                </tr>
+            }
+
+        }
+
+    </table>
+
+    <div class="total-price">
+        <table>
+            <tr>
+                <td>Total</td>
+                <td>$ @gioHang.tongslSPtronggio()</td>
+            </tr>
+
+        </table>
+    </div>
+    <a href="@Url.Action("Index","Checkout",new { area = "" })" class="btn btn-lg btn-primary">CheckOut</a>
+</div>
+
+
+
+
+

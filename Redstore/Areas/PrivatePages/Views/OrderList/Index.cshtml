@@ -1,0 +1,100 @@
+﻿@using Redstore.Models;
+@model Redstore.Models.Orders
+@{
+    List<Orders> orders = ViewData["DSDH"] as List<Orders>;
+    List<Orders> orders1 = ViewData["SumBySoDH"] as List<Orders>;
+    ViewBag.Title = "Index";
+}
+<style>
+</style>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>DataTables</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">DataTables</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Danh sách hàng mới đặt</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Số đơn hàng</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Ngày giao</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Thành tiền</th>
+                                    <th>Tình trạng</th>
+                                    <th>Nhóm lệnh</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int CountLocal = 1;
+                                    var totalPriceOrder = Redstore.Areas.PrivatePages.Models.InFo.CalculateTotalPriceByOrder();
+                                }
+                                @foreach (Orders order in orders)
+                                {
+                                    <tr>
+                                        <td>@CountLocal</td>
+                                        <td>@order.soDH</td>
+                                        <td>@order.Users.userName</td>
+                                        <td>@order.ngayGiao</td>
+                                        <td>@order.diaChiGH</td>
+                                        <td>
+                                            @totalPriceOrder[order.soDH]
+                                        </td>
+                                        <td>@order.tinhtrangDH</td>
+                                        <td style="display:flex">
+                                            @using (Html.BeginForm("CancelOrder", "OrderList", FormMethod.Post))
+                                            {
+                                                <input type="hidden" name="soDH" value="@order.soDH" />
+                                                <button class="btn btn-danger">Hủy đơn</button>
+                                            }
+
+                                            @using (Html.BeginForm("Success", "OrderList", FormMethod.Post))
+                                            {
+                                                <input type="hidden" name="soDHss" value="@order.soDH" />
+                                                <button class="btn btn-primary">Hoàn thành</button>
+                                            }
+
+                                            @using (Html.BeginForm("Activated", "OrderList", FormMethod.Post))
+                                            {
+                                                <input type="hidden" name="soDHs" value="@order.soDH" />
+                                                <button class="btn btn-success">Kích hoạt</button>
+                                            }
+                                        </td>
+                                    </tr>
+                                    CountLocal++;
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>

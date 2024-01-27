@@ -1,0 +1,43 @@
+﻿@model Redstore.Models.tkNguoiDung
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="account-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <img src="~/Chung/image/image1.png" width="100%">
+            </div>
+            <div class="col-2">
+                <div class="form-container">
+                    <div class="form-btn">
+                        <span onclick="login()">Login</span>
+                        <span onclick="register()">Register</span>
+                        <hr id="Indicator">
+                    </div>
+
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "LoginForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.TextBox("Account","", new { @class = "form-control", @placeholder = "username" })
+                        @Html.TextBox("Password","", new { @class = "form-control", @placeholder = "password",@type= "password" })
+                        <button type="submit" class="btn">Login</button>
+                        <a href="">Forgot password</a>
+                    }
+
+                    @using (Html.BeginForm("Resigter", "Account", FormMethod.Post, new { id = "RegForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.TextBoxFor(a => a.taiKhoan, new { @class = "form-control", @placeholder = "username" })
+                        @Html.TextBoxFor(a => a.Email, new { @class = "form-control", @placeholder = "email" })
+                        @Html.TextBoxFor(a => a.passWords, new { @class = "form-control", @placeholder = "password", @type = "password" })
+                        <button type="submit" class="btn">Register</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

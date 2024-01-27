@@ -1,0 +1,94 @@
+﻿@using Redstore.Models;
+@using Redstore.Areas.PrivatePages.Models;
+@{
+    List<Products> products = ViewData["DSsanpham"] as List<Products>;
+    ViewBag.Title = "Index";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Sản phẩm đang kinh doanh trong hệ thống</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Danh sách sản phẩm</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="row">
+                            @{
+                                int itemsPerPage = 6;
+                                int totalProducts = InFo.getProducts().Count();
+                                int totalPages = (int)Math.Ceiling((double)totalProducts / itemsPerPage);
+                                int pageNo = Request.QueryString["pageNo"] != null ? int.Parse(Request.QueryString["pageNo"]) : 1;
+                                int startIndex = (pageNo - 1) * itemsPerPage;
+                                int endIndex = Math.Min(startIndex + itemsPerPage, totalProducts);
+
+                                var displayedProducts = InFo.getProducts().Skip(startIndex).Take(itemsPerPage);
+                            }
+                               @foreach (Products product in displayedProducts)
+                                {
+                                    <div class="col-sm-4" style="display:flex; margin:10px 0;" id="results">
+                                        <div class="position-relative p-3 bg-gray" style=" flex:1;">
+                                            @product.nameSP <br />
+                                            <small>@product.noiDungSP</small>
+                                            <div style="display:flex; position:absolute; bottom:30px;justify-content: center;width: 100%;">
+                                                @using (Html.BeginForm("Delete", "ProductList", FormMethod.Post))
+                                                {
+                                                    <input type="hidden" name="idSP" value="@product.idSP" />
+                                                    <button class="btn btn-danger" style="margin:0 6px;">Xóa</button>
+                                                }
+                                                @using (Html.BeginForm("Info", "ProductList", FormMethod.Post))
+                                                {
+                                                    <input type="hidden" name="idSPs" value="@product.idSP" />
+                                                    <button class="btn btn-success">Sửa</button>
+                                                }
+
+                                            </div>
+                                        </div>
+
+                                        <div class="position-relative p-3 bg-gray" style=" flex:1; position:relative;">
+                                            <!-- Đặt hình ảnh sản phẩm ở đây -->
+                                            <img src="@Url.Content(product.imgSP)" alt="Sản phẩm 1" style="height: 100%; width: 100%; object-fit: cover;" />
+                                            <div class="ribbon-wrapper">
+                                                <div class="ribbon bg-primary">
+                                                    Đang bán
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 }
+
+                            <div style="display: flex;">
+                                <ul class="paper" style="list-style:none; display:flex;">
+                                    <li><a href="?pageNo=1" class="btn btn-default">|<<</a></li>
+                                    <li><a href="?pageNo=@(pageNo - 1)" class="btn btn-default"><<</a></li>
+                                    <li><a href="?pageNo=@(pageNo + 1)" class="btn btn-default">>></a></li>
+                                    <li><a href="?pageNo=@totalPages" class="btn btn-default">>>|</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>

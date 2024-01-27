@@ -1,0 +1,18 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Redstore",
+    "\\Redstore\\Areas",
+    "\\Redstore\\Areas\\PrivatePages",
+    "\\Redstore\\Areas\\PrivatePages\\Views",
+    "\\Redstore\\Areas\\PrivatePages\\Views\\LoginAdmin",
+    "\\Redstore\\Controllers",
+    "\\Redstore\\Models",
+    "\\Redstore\\Views",
+    "\\Redstore\\Views\\Cart",
+    "\\Redstore\\Views\\Home",
+    "\\Redstore\\Views\\Products"
+  ],
+  "SelectedNode": "\\Redstore\\Views\\Products\\Index.cshtml",
+  "PreviewInSolutionExplorer": false
+}

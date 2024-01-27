@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a3b7fb2096d8401aacf8a23793f48bcd" Name="Diagram1">
+        <EntityTypeShape EntityType="RedStore1Model.AdminAccounts" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedStore1Model.detailOrders" Width="1.5" PointX="8.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedStore1Model.Orders" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedStore1Model.Products" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedStore1Model.tkNguoiDung" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedStore1Model.typProducts" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RedStore1Model.Users" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <AssociationConnector Association="RedStore1Model.FK__Orders__idAdmin__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="RedStore1Model.FK__Products__idAdmi__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="RedStore1Model.FK__detailOrde__idSP__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="RedStore1Model.FK__detailOrde__soDH__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="RedStore1Model.FK_detailOrders_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="RedStore1Model.FK_detailOrders_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="RedStore1Model.FK_Orders_tkNguoiDung" ManuallyRouted="false" />
+        <AssociationConnector Association="RedStore1Model.FK_Orders_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RedStore1Model.FK__Products__typeSP__4222D4EF" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RedStore1ModelStoreContainer" CdmEntityContainer="RedStore1Entities5">
+    <EntitySetMapping Name="AdminAccounts">
+      <EntityTypeMapping TypeName="RedStore1Model.AdminAccounts">
+        <MappingFragment StoreEntitySet="AdminAccounts">
+          <ScalarProperty Name="idAdmin" ColumnName="idAdmin" />
+          <ScalarProperty Name="taiKhoanAdmin" ColumnName="taiKhoanAdmin" />
+          <ScalarProperty Name="matKhauAdmin" ColumnName="matKhauAdmin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="detailOrders">
+      <EntityTypeMapping TypeName="RedStore1Model.detailOrders">
+        <MappingFragment StoreEntitySet="detailOrders">
+          <ScalarProperty Name="soDH" ColumnName="soDH" />
+          <ScalarProperty Name="idSP" ColumnName="idSP" />
+          <ScalarProperty Name="quanTity" ColumnName="quanTity" />
+          <ScalarProperty Name="priceSP" ColumnName="priceSP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="RedStore1Model.Orders">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="soDH" ColumnName="soDH" />
+          <ScalarProperty Name="idUser" ColumnName="idUser" />
+          <ScalarProperty Name="taiKhoan" ColumnName="taiKhoan" />
+          <ScalarProperty Name="ngayDat" ColumnName="ngayDat" />
+          <ScalarProperty Name="ngayGiao" ColumnName="ngayGiao" />
+          <ScalarProperty Name="diaChiGH" ColumnName="diaChiGH" />
+          <ScalarProperty Name="tinhtrangDH" ColumnName="tinhtrangDH" />
+          <ScalarProperty Name="idAdmin" ColumnName="idAdmin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="RedStore1Model.Products">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="idSP" ColumnName="idSP" />
+          <ScalarProperty Name="nameSP" ColumnName="nameSP" />
+          <ScalarProperty Name="imgSP" ColumnName="imgSP" />
+          <ScalarProperty Name="priceSP" ColumnName="priceSP" />
+          <ScalarProperty Name="typeSP" ColumnName="typeSP" />
+          <ScalarProperty Name="noiDungSP" ColumnName="noiDungSP" />
+          <ScalarProperty Name="idAdmin" ColumnName="idAdmin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tkNguoiDung">
+      <EntityTypeMapping TypeName="RedStore1Model.tkNguoiDung">
+        <MappingFragment StoreEntitySet="tkNguoiDung">
+          <ScalarProperty Name="taiKhoan" ColumnName="taiKhoan" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="passWords" ColumnName="passWords" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="typProducts">
+      <EntityTypeMapping TypeName="RedStore1Model.typProducts">
+        <MappingFragment StoreEntitySet="typProducts">
+          <ScalarProperty Name="typeSP" ColumnName="typeSP" />
+          <ScalarProperty Name="secTors" ColumnName="secTors" />
+          <ScalarProperty Name="noTe" ColumnName="noTe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="RedStore1Model.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="idUser" ColumnName="idUser" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="numberPhone" ColumnName="numberPhone" />
+          <ScalarProperty Name="Adress" ColumnName="Adress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

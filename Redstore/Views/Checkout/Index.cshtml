@@ -1,0 +1,128 @@
+﻿@model Redstore.Models.Users
+@using Redstore.Models;
+@{
+    ViewBag.Title = "Index";
+    GioHang hang = Session["giohang"] as GioHang;
+    GioHang gioHang = ViewData["Cart"] as GioHang;
+    if (gioHang == null)
+    {
+        gioHang = new GioHang();
+        ViewData["Cart"] = gioHang;
+    }
+}
+<style>
+    .cart-info button {
+        border: none;
+        color: #ff523b;
+        background: none;
+        font-size: 17px;
+    }
+
+        .cart-info button:hover {
+            cursor: pointer;
+        }
+
+    .quantity-button {
+        width: 40px;
+    }
+
+    .quantity-input {
+        text-align: center;
+    }
+</style>
+<div class="container" style="display: flex;    justify-content: center; margin-bottom: 262px; align-items: center;">
+    <!-- Customer Information -->
+    <div class="row mb-4" style="margin-right: 100px;">
+        <div class="col-md-8">
+            <h4>Customer Information</h4>
+            @using (Html.BeginForm("SaveInFo", "Checkout", FormMethod.Post))
+            {
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputName">Name</label>
+                            @Html.TextBoxFor(a=>a.userName, new { @class= "form-control",@placeholder= "Your Name" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail">Email</label>
+                            @Html.TextBoxFor(a => a.Email, new { @class = "form-control", @placeholder = "Your Email" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPhone">Phone</label>
+                            @Html.TextBoxFor(a => a.numberPhone, new { @class = "form-control", @placeholder = "Your Phone" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputAdress">Adress</label>
+                            @Html.TextBoxFor(a => a.Adress, new { @class = "form-control", @placeholder = "Your Adress" })
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary">Place Order</button>
+                </form>
+            }
+
+        </div>
+    </div>
+    <div>
+        <!-- Product Information -->
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <h4>Product Information</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (detailOrders detail in gioHang.SPchon.Values)
+                        {
+                        <tr>
+                            <td>
+                                <div class="cart-info">
+                                    <img src="@Url.Content(dungchung.getimgofProducts(detail.idSP))">
+                                    <div>
+                                        <p>@dungchung.getNameofProducts(detail.idSP)</p>
+                                        <small>Price: $@detail.priceSP</small><br>
+                                        @using (Html.BeginForm("XoaSP", "Cart", FormMethod.Post))
+                                        {
+                                            <input type="hidden" name="idSP" value="@detail.idSP" />
+                                            <button class="">Remove</button>
+                                        }
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="text" value="@detail.quanTity" class="quantity-input">
+                            </td>
+                            <td>$@gioHang.giatien1SP(detail)</td>
+                        </tr>
+                        }
+                        <!-- Add more product rows if needed -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- Order Summary -->
+        <div class="row mb-4" style="display:block">
+            <div class="col-md-4">
+                <h4>Order Summary</h4>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Total</td>
+                            <td>$@gioHang.tongslSPtronggio()</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+    
+</div>
+

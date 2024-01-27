@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RedStore1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AdminAccounts">
+    <Key>
+      <PropertyRef Name="idAdmin" />
+    </Key>
+    <Property Name="idAdmin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="taiKhoanAdmin" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="matKhauAdmin" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__idAdmin__5EBF139D" FromRole="AdminAccounts" ToRole="Orders" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Products__idAdmi__5DCAEF64" FromRole="AdminAccounts" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="detailOrders">
+    <Key>
+      <PropertyRef Name="soDH" />
+      <PropertyRef Name="idSP" />
+    </Key>
+    <Property Name="soDH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idSP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="quanTity" Type="Int32" Nullable="false" />
+    <Property Name="priceSP" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__detailOrde__idSP__45F365D3" FromRole="detailOrders" ToRole="Products" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__detailOrde__soDH__44FF419A" FromRole="detailOrders" ToRole="Orders" />
+    <NavigationProperty Name="Orders1" Relationship="Self.FK_detailOrders_Orders" FromRole="detailOrders" ToRole="Orders" />
+    <NavigationProperty Name="Products1" Relationship="Self.FK_detailOrders_Products" FromRole="detailOrders" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="soDH" />
+    </Key>
+    <Property Name="soDH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idUser" Type="Int32" Nullable="false" />
+    <Property Name="taiKhoan" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ngayDat" Type="DateTime" Precision="3" />
+    <Property Name="ngayGiao" Type="DateTime" Precision="3" />
+    <Property Name="diaChiGH" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tinhtrangDH" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="idAdmin" Type="Int32" />
+    <NavigationProperty Name="AdminAccounts" Relationship="Self.FK__Orders__idAdmin__5EBF139D" FromRole="Orders" ToRole="AdminAccounts" />
+    <NavigationProperty Name="detailOrders" Relationship="Self.FK__detailOrde__soDH__44FF419A" FromRole="Orders" ToRole="detailOrders" />
+    <NavigationProperty Name="detailOrders1" Relationship="Self.FK_detailOrders_Orders" FromRole="Orders" ToRole="detailOrders" />
+    <NavigationProperty Name="tkNguoiDung" Relationship="Self.FK_Orders_tkNguoiDung" FromRole="Orders" ToRole="tkNguoiDung" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Orders_Users" FromRole="Orders" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="idSP" />
+    </Key>
+    <Property Name="idSP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nameSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="imgSP" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="priceSP" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="typeSP" Type="Int32" Nullable="false" />
+    <Property Name="noiDungSP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="idAdmin" Type="Int32" />
+    <NavigationProperty Name="AdminAccounts" Relationship="Self.FK__Products__idAdmi__5DCAEF64" FromRole="Products" ToRole="AdminAccounts" />
+    <NavigationProperty Name="detailOrders" Relationship="Self.FK__detailOrde__idSP__45F365D3" FromRole="Products" ToRole="detailOrders" />
+    <NavigationProperty Name="detailOrders1" Relationship="Self.FK_detailOrders_Products" FromRole="Products" ToRole="detailOrders" />
+    <NavigationProperty Name="typProducts" Relationship="Self.FK__Products__typeSP__4222D4EF" FromRole="Products" ToRole="typProducts" />
+  </EntityType>
+  <EntityType Name="tkNguoiDung">
+    <Key>
+      <PropertyRef Name="taiKhoan" />
+    </Key>
+    <Property Name="taiKhoan" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="passWords" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_tkNguoiDung" FromRole="tkNguoiDung" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="typProducts">
+    <Key>
+      <PropertyRef Name="typeSP" />
+    </Key>
+    <Property Name="typeSP" Type="Int32" Nullable="false" />
+    <Property Name="secTors" Type="String" MaxLength="90" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="noTe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Products__typeSP__4222D4EF" FromRole="typProducts" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="idUser" />
+    </Key>
+    <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="numberPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Adress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
+  </EntityType>
+  <Association Name="FK__Orders__idAdmin__5EBF139D">
+    <End Role="AdminAccounts" Type="Self.AdminAccounts" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AdminAccounts">
+        <PropertyRef Name="idAdmin" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="idAdmin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Products__idAdmi__5DCAEF64">
+    <End Role="AdminAccounts" Type="Self.AdminAccounts" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AdminAccounts">
+        <PropertyRef Name="idAdmin" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="idAdmin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__detailOrde__idSP__45F365D3">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="detailOrders" Type="Self.detailOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="idSP" />
+      </Principal>
+      <Dependent Role="detailOrders">
+        <PropertyRef Name="idSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__detailOrde__soDH__44FF419A">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="detailOrders" Type="Self.detailOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="soDH" />
+      </Principal>
+      <Dependent Role="detailOrders">
+        <PropertyRef Name="soDH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_detailOrders_Orders">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="detailOrders" Type="Self.detailOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="soDH" />
+      </Principal>
+      <Dependent Role="detailOrders">
+        <PropertyRef Name="soDH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_detailOrders_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="detailOrders" Type="Self.detailOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="idSP" />
+      </Principal>
+      <Dependent Role="detailOrders">
+        <PropertyRef Name="idSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_tkNguoiDung">
+    <End Role="tkNguoiDung" Type="Self.tkNguoiDung" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tkNguoiDung">
+        <PropertyRef Name="taiKhoan" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="taiKhoan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="idUser" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="idUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Products__typeSP__4222D4EF">
+    <End Role="typProducts" Type="Self.typProducts" Multiplicity="1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="typProducts">
+        <PropertyRef Name="typeSP" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="typeSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RedStore1Entities5" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AdminAccounts" EntityType="Self.AdminAccounts" />
+    <EntitySet Name="detailOrders" EntityType="Self.detailOrders" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" />
+    <EntitySet Name="Products" EntityType="Self.Products" />
+    <EntitySet Name="tkNguoiDung" EntityType="Self.tkNguoiDung" />
+    <EntitySet Name="typProducts" EntityType="Self.typProducts" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK__Orders__idAdmin__5EBF139D" Association="Self.FK__Orders__idAdmin__5EBF139D">
+      <End Role="AdminAccounts" EntitySet="AdminAccounts" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Products__idAdmi__5DCAEF64" Association="Self.FK__Products__idAdmi__5DCAEF64">
+      <End Role="AdminAccounts" EntitySet="AdminAccounts" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__detailOrde__idSP__45F365D3" Association="Self.FK__detailOrde__idSP__45F365D3">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="detailOrders" EntitySet="detailOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__detailOrde__soDH__44FF419A" Association="Self.FK__detailOrde__soDH__44FF419A">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="detailOrders" EntitySet="detailOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_detailOrders_Orders" Association="Self.FK_detailOrders_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="detailOrders" EntitySet="detailOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_detailOrders_Products" Association="Self.FK_detailOrders_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="detailOrders" EntitySet="detailOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_tkNguoiDung" Association="Self.FK_Orders_tkNguoiDung">
+      <End Role="tkNguoiDung" EntitySet="tkNguoiDung" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Products__typeSP__4222D4EF" Association="Self.FK__Products__typeSP__4222D4EF">
+      <End Role="typProducts" EntitySet="typProducts" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

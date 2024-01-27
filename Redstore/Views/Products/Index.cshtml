@@ -1,0 +1,88 @@
+﻿@using Redstore.Models;
+
+@{
+    ViewBag.Title = "Index";
+    GioHang hang = Session["giohang"] as GioHang;
+    GioHang gioHang = ViewData["Cart"] as GioHang;
+    if (gioHang == null)
+    {
+        gioHang = new GioHang();
+        ViewData["Cart"] = gioHang;
+    }
+}
+
+<div class="small-container">
+    <div class="row row-2">
+        <h2>All Products</h2>
+        <select id="sort-by">
+            <option value="default">Default sorting</option>
+            <option value="price">Short by price</option>
+        </select>
+    </div>
+
+    <div class="row">
+        @{
+            var product = dungchung.GetProducts();
+
+            var sortBy = Request.QueryString["sort"];
+            switch (sortBy)
+            {
+                case "price":
+                    product = product.OrderBy(p => p.priceSP).ToList();
+                    break;
+                default:
+                    product = product.ToList();
+                    break;
+            }
+
+            var itemsPerPage = 12;
+            var totalProducts = product.Count();
+            var totalPages = (int)Math.Ceiling((double)totalProducts / itemsPerPage);
+
+            var currentPage = HttpContext.Current.Request.QueryString["page"];
+            int page = 1;
+            if (!string.IsNullOrEmpty(currentPage) && int.TryParse(currentPage, out var parsedPage))
+            {
+                page = parsedPage;
+            }
+
+            var productsToShow = product.Skip((page - 1) * itemsPerPage).Take(itemsPerPage);
+
+            foreach (var p in productsToShow)
+            {
+        <div class="col-4">
+            <a href="products-details.html">
+                <img src="@Url.Content(p.imgSP)">
+            </a>
+            <a href="products-details.html">
+                <h4>@p.nameSP</h4>
+            </a>
+            <p>$@p.priceSP</p>
+            @using (Html.BeginForm("addSP", "Products", FormMethod.Post, new { id = "addToCartForm" }))
+            {
+                <input type="hidden" name="idSP" value="@p.idSP" />
+                <button type="button" class="btn btn-block btn-primary addToCartBtn">Add to Cart</button>
+            }
+
+
+        </div>
+            }
+        }
+    </div>
+
+    <div class="page-btn">
+        @for (int i = 1; i <= totalPages; i++)
+        {
+            <a href="?page=@i&sort=@ViewBag.SortBy"><span>@i</span></a>
+        }
+    </div>
+</div>
+
+<script>
+    document.getElementById("sort-by").addEventListener("change", function () {
+        var selectedValue = this.value;
+        window.location.href = "?sort=" + selectedValue;
+    });
+</script>
+
+
